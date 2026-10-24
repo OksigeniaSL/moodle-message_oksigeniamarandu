@@ -1,0 +1,36 @@
+/* The notification preferences of Moodle do not fit a phone with a third column: they spill sideways and push
+   the column of WhatsApp out of the screen. On a phone, and only when that column is there, the columns of the
+   channels get a fixed width and the switches lose the room they keep for a label nobody sees. */
+@media (max-width: 575.98px) {
+    .preference-table:has(th[data-processor-name="oksigeniamarandu"]) {
+        table-layout: fixed;
+    }
+
+    .preference-table:has(th[data-processor-name="oksigeniamarandu"]) thead th[data-processor-name] {
+        width: 82px;
+        font-size: 14px;
+    }
+
+    .preference-table:has(th[data-processor-name="oksigeniamarandu"]) th,
+    .preference-table:has(th[data-processor-name="oksigeniamarandu"]) td {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+    .preference-table:has(th[data-processor-name="oksigeniamarandu"]) .form-switch {
+        display: inline-block;
+    }
+
+    /* Long names break into syllables rather than over the switches. */
+    .preference-table:has(th[data-processor-name="oksigeniamarandu"]) .preference-name {
+        hyphens: auto;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 374.98px) {
+    .preference-table:has(th[data-processor-name="oksigeniamarandu"]) thead th[data-processor-name] {
+        width: 70px;
+        font-size: 13px;
+    }
+}

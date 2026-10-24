@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 (2026-10-24)
+
+- On a phone, the notification preferences fit the screen with the WhatsApp column: before, the table spilled
+  sideways and the column was out of sight.
+
 ## 0.1.0 (2026-10-24)
 
 - The WhatsApp channel joins the notification preferences of Moodle: each user joins their number from the settings
