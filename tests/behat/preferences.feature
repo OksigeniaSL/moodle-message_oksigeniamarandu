@@ -19,7 +19,8 @@ Feature: Users get their notifications on WhatsApp
     Given I log in as "ana"
     And I follow "Preferences" in the user menu
     And I click on "Notification preferences" "link"
-    When I click on "[data-processor-setting][data-name='oksigeniamarandu']" "css_element"
+    # The cog: the link itself starts with an empty box, which the browser of the tests does not click.
+    When I click on "[data-processor-setting][data-name='oksigeniamarandu'] > .icon" "css_element"
     Then I should see "To get your notifications on WhatsApp, join your number first."
     And "Join my WhatsApp" "link" should exist
 
