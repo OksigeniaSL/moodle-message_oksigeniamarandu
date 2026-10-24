@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 (2026-10-24)
+
+- On the narrowest phones, the names of the notifications keep their words whole: narrower switch columns, slightly
+  smaller names, and breaks into syllables where the language allows.
+- Spanish: «primero da de alta tu número».
+
 ## 0.1.1 (2026-10-24)
 
 - On a phone, the notification preferences fit the screen with the WhatsApp column: before, the table spilled

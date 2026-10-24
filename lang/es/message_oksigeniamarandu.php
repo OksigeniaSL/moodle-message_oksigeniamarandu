@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['join'] = 'Dar de alta mi WhatsApp';
 $string['joined'] = 'Tu WhatsApp está dado de alta: las notificaciones que enciendas para WhatsApp te llegan allí, con un enlace para leerlas en el sitio. Para dejar de recibirlas, escribe «{$a}» al número del sitio.';
 $string['nosubject'] = 'Notificación nueva';
-$string['notjoined'] = 'Para recibir tus notificaciones por WhatsApp, da de alta antes tu número. La página abre WhatsApp en el móvil, o te enseña un código QR en el ordenador: solo tienes que mandar el mensaje.';
+$string['notjoined'] = 'Para recibir tus notificaciones por WhatsApp, primero da de alta tu número. La página abre WhatsApp en el móvil, o te enseña un código QR en el ordenador: solo tienes que mandar el mensaje.';
 $string['notready'] = 'WhatsApp todavía no está listo en este sitio.';
 $string['pluginname'] = 'WhatsApp';
 $string['privacy:metadata'] = 'El canal de WhatsApp no guarda nada: pasa las notificaciones a Oksigenia Marandu para WhatsApp, que guarda los números, su consentimiento y la cola, y responde por ellos.';

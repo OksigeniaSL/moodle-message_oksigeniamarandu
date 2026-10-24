@@ -21,10 +21,10 @@
         display: inline-block;
     }
 
-    /* Long names break into syllables rather than over the switches. */
+    /* Long names break into syllables where the language allows, and only at the last moment inside a word. */
     .preference-table:has(th[data-processor-name="oksigeniamarandu"]) .preference-name {
         hyphens: auto;
-        overflow-wrap: anywhere;
+        overflow-wrap: break-word;
     }
 }
 
@@ -32,5 +32,17 @@
     .preference-table:has(th[data-processor-name="oksigeniamarandu"]) thead th[data-processor-name] {
         width: 70px;
         font-size: 13px;
+    }
+}
+
+/* The narrowest phones: narrower switch columns and a little smaller names, so that the words fit whole. */
+@media (max-width: 339.98px) {
+    .preference-table:has(th[data-processor-name="oksigeniamarandu"]) thead th[data-processor-name] {
+        width: 62px;
+        font-size: 11px;
+    }
+
+    .preference-table:has(th[data-processor-name="oksigeniamarandu"]) .preference-name {
+        font-size: 14.5px;
     }
 }
