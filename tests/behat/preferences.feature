@@ -17,8 +17,7 @@ Feature: Users get their notifications on WhatsApp
   @javascript
   Scenario: The settings of the channel tell how to join
     Given I log in as "ana"
-    And I follow "Preferences" in the user menu
-    And I click on "Notification preferences" "link"
+    And I visit "/message/notificationpreferences.php"
     When I open the settings of the WhatsApp channel
     Then I should see "To get your notifications on WhatsApp, join your number first."
     And "Join my WhatsApp" "link" should exist
