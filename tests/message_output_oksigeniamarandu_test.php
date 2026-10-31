@@ -96,6 +96,13 @@ final class message_output_oksigeniamarandu_test extends \advanced_testcase {
         consent::optout('34600000001', 'whatsapp', 'wamid.TEST2');
         $this->assertFalse($this->output->is_user_configured($user));
         $this->assertSame(0, $DB->count_records(queue::TABLE));
+
+        // Joined with a code from elsewhere (the app, a letter), it counts; a chat of Telegram is another column.
+        consent::optin_from_message('34600000002', api::invite('core', 0, (int)$other->id), 'wamid.TEST3');
+        $this->assertTrue($this->output->is_user_configured($other));
+        $third = $this->getDataGenerator()->create_user();
+        consent::optin_from_message('tg:555', api::invite('core', 0, (int)$third->id), 'telegram:1');
+        $this->assertFalse($this->output->is_user_configured($third));
     }
 
     /**

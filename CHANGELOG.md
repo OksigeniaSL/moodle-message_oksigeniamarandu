@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4 (2026-11-01)
+
+- A user counts as joined with any code (these preferences, the app or a letter), and only on WhatsApp. Needs
+  local_oksigeniamarandu 0.8.0.
+
 ## 0.1.3 (2026-10-31)
 
 - The main plugin is called Oksigenia Marandu, without the channel.

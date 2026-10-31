@@ -140,7 +140,8 @@ class message_output_oksigeniamarandu extends message_output {
         if (empty($user->id) || !empty($user->deleted) || !empty($user->suspended) || ($user->auth ?? '') === 'nologin') {
             return false;
         }
-        return api::has_active_contact(self::COMPONENT, 0, (int)$user->id);
+        // Joined with any code (these preferences, the app or a letter), on WhatsApp: a chat of Telegram is another column.
+        return api::user_joined((int)$user->id, 'whatsapp');
     }
 
     /**

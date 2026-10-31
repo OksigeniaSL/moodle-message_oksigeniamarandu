@@ -25,10 +25,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'message_oksigeniamarandu';
-$plugin->version   = 2026103100;
-$plugin->release   = '0.1.3';
+$plugin->version   = 2026110100;
+$plugin->release   = '0.1.4';
 $plugin->maturity  = MATURITY_ALPHA;
 $plugin->requires  = 2024100700; // Moodle 4.5, the oldest branch that still gets security fixes.
 $plugin->supported = [405, 503];
 // The account of the site, the numbers, their consent and the queue live in the main plugin.
-$plugin->dependencies = ['local_oksigeniamarandu' => 2026102401];
+$plugin->dependencies = ['local_oksigeniamarandu' => 2026110100];
