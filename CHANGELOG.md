@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3 (2026-10-31)
+
+- The main plugin is called Oksigenia Marandu, without the channel.
+
 ## 0.1.2 (2026-10-24)
 
 - On the narrowest phones, the names of the notifications keep their words whole: narrower switch columns, slightly

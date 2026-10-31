@@ -5,7 +5,7 @@
 ![Estado](https://img.shields.io/badge/estado-pre--alfa-red)
 [![Patrocinio](https://img.shields.io/badge/patrocinio-Oksigenia-00d4ff)](https://oksigenia.com/en/open-source#sponsor)
 
-El canal de WhatsApp de **Oksigenia Marandu para WhatsApp**: cada usuario elige qué notificaciones de Moodle™ le llegan
+El canal de WhatsApp de **Oksigenia Marandu**: cada usuario elige qué notificaciones de Moodle™ le llegan
 por WhatsApp, junto a la web y el correo, en sus preferencias de notificación. Salen desde la cuenta oficial de
 WhatsApp Business del propio sitio, solo a los números que han dado su consentimiento y dentro del tope de gasto y las
 horas de silencio del sitio. *Marandu* es «noticia» o «aviso» en guaraní.
@@ -15,7 +15,7 @@ horas de silencio del sitio. *Marandu* es «noticia» o «aviso» en guaraní.
 ## Cómo funciona
 
 - El sitio configura su cuenta de WhatsApp con
-  [Oksigenia Marandu para WhatsApp](https://github.com/OksigeniaSL/moodle-local_oksigeniamarandu)
+  [Oksigenia Marandu](https://github.com/OksigeniaSL/moodle-local_oksigeniamarandu)
   (`local_oksigeniamarandu`, necesario) y enciende su aviso general. Hasta entonces, el canal no se ve.
 - Cada usuario da de alta su número en *Preferencias > Preferencias de notificación*, en los ajustes de la columna de
   WhatsApp: una página privada abre WhatsApp en el móvil con el mensaje ya escrito, o enseña un código QR en el

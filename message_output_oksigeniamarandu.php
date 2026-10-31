@@ -33,7 +33,7 @@ use local_oksigeniamarandu\local\notices;
 
 /**
  * The notifications a user switches on for WhatsApp go to the numbers the user joined, as the general notice of
- * Oksigenia Marandu for WhatsApp: the name of the site, the subject and a button to read them on the site. The text of
+ * Oksigenia Marandu: the name of the site, the subject and a button to read them on the site. The text of
  * the notification itself never leaves the site.
  *
  * @package    message_oksigeniamarandu
