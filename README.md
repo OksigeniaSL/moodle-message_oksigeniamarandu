@@ -1,28 +1,30 @@
-# WhatsApp notification channel for Moodle (Oksigenia Marandu)
+# Mobile messaging for the notifications of Moodle: WhatsApp and Telegram (Oksigenia Marandu)
 
 [![License: GPLv3](https://img.shields.io/badge/license-GPLv3+-blue.svg)](LICENSE)
 ![Moodle](https://img.shields.io/badge/Moodle-4.5%E2%80%935.3-orange)
 ![Status](https://img.shields.io/badge/status-pre--alpha-red)
 [![Sponsor](https://img.shields.io/badge/sponsor-Oksigenia-00d4ff)](https://oksigenia.com/en/open-source#sponsor)
 
-The WhatsApp channel of **Oksigenia Marandu**: each user chooses which notifications of Moodle™ reach
-them on WhatsApp, next to the web and email, in their notification preferences. They go out from the site's own
-official WhatsApp Business account, only to numbers that opted in, within the spending cap and the quiet hours of the
-site. *Marandu* means "news" or "notice" in Guarani.
+The notification channel of **Oksigenia Marandu**: one column, "Mobile messaging", in the notification preferences,
+next to the web and email. Each user joins on WhatsApp, on Telegram or on both, and chooses which notifications of
+Moodle™ reach their phone. They go out from the site's own official WhatsApp Business account and its own Telegram bot,
+only to those who joined, within the limits and the quiet hours of the site. A channel to come is one more option of
+the same column. *Marandu* means "news" or "notice" in Guarani.
 
 [Leer en español](README.es.md)
 
 ## How it works
 
-- The site sets up its WhatsApp account with
+- The site connects WhatsApp, Telegram or both with
   [Oksigenia Marandu](https://github.com/OksigeniaSL/moodle-local_oksigeniamarandu) (`local_oksigeniamarandu`,
-  required) and switches on its general notice. Until then, the channel stays hidden.
-- Each user joins their number in *Preferences > Notification preferences*, with the settings of the WhatsApp column:
-  a private page opens WhatsApp on the phone with the message already written, or shows a QR code on a computer.
-  Nothing is sent to a number that has not written to the site first, and writing the opt-out word stops everything.
-- On the same page, each user switches on the notifications they want on WhatsApp. The administrator can turn kinds
-  of notification off or lock them in *Site administration > Messaging > Notification settings*.
-- What reaches WhatsApp is the name of the site, the subject of the notification and a button to read it on the
+  required) and switches on its general notice for each channel. Until then, the column stays hidden.
+- Each user joins in *Preferences > Notification preferences*, in the settings of the column: on WhatsApp, a private
+  page opens WhatsApp on the phone with the message already written, or shows a QR code on a computer; on Telegram, the
+  bot of the site opens with the user's code. Nothing is sent to anyone who has not written first, and the opt-out
+  word (or blocking the bot) stops everything.
+- On the same page, each user switches on the notifications they want on their phone. The administrator can turn
+  kinds of notification off or lock them in *Site administration > Messaging > Notification settings*.
+- What reaches the phone is the name of the site, the subject of the notification and a button to read it on the
   site. The text of the notification stays on the site.
 
 ## Status
@@ -31,7 +33,7 @@ site. *Marandu* means "news" or "notice" in Guarani.
 
 ## Install
 
-1. Install [local_oksigeniamarandu](https://github.com/OksigeniaSL/moodle-local_oksigeniamarandu) 0.4.1 or later.
+1. Install [local_oksigeniamarandu](https://github.com/OksigeniaSL/moodle-local_oksigeniamarandu) 0.13.0 or later.
 2. Copy this plugin to `message/output/oksigeniamarandu` in your Moodle (4.5 to 5.3).
 3. Visit *Site administration > Notifications* to finish the install.
 
@@ -49,4 +51,4 @@ GNU GPL v3 or later. See [LICENSE](LICENSE).
 
 The word Moodle and associated Moodle logos are trademarks or registered trademarks of Moodle Pty Ltd or its
 related affiliates. Oksigenia is not affiliated with Moodle HQ and is not a Moodle Certified Partner. WhatsApp is a
-trademark of Meta Platforms, Inc.; this plugin is not made, endorsed or sponsored by Meta.
+trademark of Meta Platforms, Inc. This plugin is not made, endorsed or sponsored by Meta or by Telegram.

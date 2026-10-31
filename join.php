@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Takes the user to the private page where their WhatsApp joins: a code of their own, made when they ask for it.
+ * Takes the user to where they join a channel with a code of their own, made when they ask for it: the private page of
+ * WhatsApp, or the bot of Telegram, which opens with the code.
  *
  * @package    message_oksigeniamarandu
  * @copyright  2026 Oksigenia SL <dev@oksigenia.cc>
@@ -42,5 +43,8 @@ if (!\core_message\api::is_processor_enabled('oksigeniamarandu') || !$processor-
     exit;
 }
 
+$channel = optional_param('channel', 'whatsapp', PARAM_ALPHA);
+$channel = in_array($channel, message_output_oksigeniamarandu::channels(), true) ? $channel : 'whatsapp';
 $code = \local_oksigeniamarandu\api::invite(message_output_oksigeniamarandu::COMPONENT, 0, (int)$USER->id);
-redirect(\local_oksigeniamarandu\api::signup_url($code));
+redirect($channel === 'telegram' ? new moodle_url(\local_oksigeniamarandu\api::join_url('telegram', $code))
+    : \local_oksigeniamarandu\api::signup_url($code));

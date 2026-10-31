@@ -8,7 +8,8 @@
 
     .preference-table:has(th[data-processor-name="oksigeniamarandu"]) thead th[data-processor-name] {
         width: 82px;
-        font-size: 14px;
+        /* «Mensajería móvil» goes in two lines; its longest word has to fit the column. */
+        font-size: 13px;
     }
 
     .preference-table:has(th[data-processor-name="oksigeniamarandu"]) th,

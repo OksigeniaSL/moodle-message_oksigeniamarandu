@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * The WhatsApp channel of the notifications of Moodle.
+ * The channel of the notifications of Moodle to the phone: WhatsApp, Telegram, and any channel Marandu has.
  *
  * @package    message_oksigeniamarandu
  * @copyright  2026 Oksigenia SL <dev@oksigenia.cc>
@@ -27,14 +27,14 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/message/output/lib.php');
 
 use local_oksigeniamarandu\api;
-use local_oksigeniamarandu\local\cloud_api;
 use local_oksigeniamarandu\local\keywords;
 use local_oksigeniamarandu\local\notices;
 
 /**
- * The notifications a user switches on for WhatsApp go to the numbers the user joined, as the general notice of
- * Oksigenia Marandu: the name of the site, the subject and a button to read them on the site. The text of
- * the notification itself never leaves the site.
+ * One column, «Mobile messaging», for every channel: the notifications a user switches on in it go to whatever the
+ * user joined (their WhatsApp, their Telegram, or both), as the general notice of Oksigenia Marandu: the name of the
+ * site, the subject and a button to read them on the site. The text of the notification itself never leaves the site.
+ * A channel to come is one more option in the settings of the column.
  *
  * @package    message_oksigeniamarandu
  * @copyright  2026 Oksigenia SL <dev@oksigenia.cc>
@@ -92,19 +92,32 @@ class message_output_oksigeniamarandu extends message_output {
             return \html_writer::tag('p', get_string('notready', self::COMPONENT));
         }
         $userid = (int)($preferences->oksigeniamarandu_userid ?? $USER->id);
-        $user = \core_user::get_user($userid);
-        if ($user && $this->is_user_configured($user)) {
-            return \html_writer::tag('p', get_string('joined', self::COMPONENT, keywords::first('optoutkeywords')));
+        $html = \html_writer::tag('p', get_string('intro', self::COMPONENT));
+        $items = '';
+        foreach (api::user_channels($userid) as $channel => $info) {
+            if (!in_array($channel, self::channels(), true)) {
+                continue;
+            }
+            if ($info['joined']) {
+                $how = get_string('joined_' . $channel, self::COMPONENT, (object)[
+                    'where' => $info['where'],
+                    'word' => keywords::first('optoutkeywords'),
+                    'stop' => '/' . get_string('telegram:cmd:stop', 'local_oksigeniamarandu'),
+                ]);
+                $items .= \html_writer::tag('li', \html_writer::tag('b', $info['name']) . ': ' . $how);
+            } else if ($userid === (int)$USER->id) {
+                // The way to join: a private page for WhatsApp, the bot itself for Telegram.
+                $items .= \html_writer::tag('li', \html_writer::link(
+                    new \moodle_url('/message/output/oksigeniamarandu/join.php', ['channel' => $channel]),
+                    get_string('join_' . $channel, self::COMPONENT),
+                    ['class' => 'btn btn-primary', 'target' => '_blank', 'rel' => 'noopener']
+                ));
+            } else {
+                $items .= \html_writer::tag('li', \html_writer::tag('b', $info['name']) . ': '
+                    . get_string('notjoined', self::COMPONENT));
+            }
         }
-        $html = \html_writer::tag('p', get_string('notjoined', self::COMPONENT));
-        if ($userid === (int)$USER->id) {
-            $html .= \html_writer::link(
-                new \moodle_url('/message/output/oksigeniamarandu/join.php'),
-                get_string('join', self::COMPONENT),
-                ['class' => 'btn btn-primary', 'target' => '_blank', 'rel' => 'noopener']
-            );
-        }
-        return $html;
+        return $html . \html_writer::tag('ul', $items, ['class' => 'list-unstyled d-grid gap-2']);
     }
 
     /**
@@ -124,8 +137,22 @@ class message_output_oksigeniamarandu extends message_output {
      * @return bool
      */
     public function is_system_configured() {
-        return cloud_api::is_configured()
-            && in_array('local_oksigeniamarandu/' . self::NOTICE, notices::enabled(), true);
+        return (bool)self::channels();
+    }
+
+    /**
+     * The channels of the site that are ready and send the general notice, which is what this column sends.
+     *
+     * @return string[] whatsapp, telegram.
+     */
+    public static function channels(): array {
+        $channels = [];
+        foreach (api::channels() as $channel => $info) {
+            if ($info['ready'] && in_array('local_oksigeniamarandu/' . self::NOTICE, notices::enabled($channel), true)) {
+                $channels[] = $channel;
+            }
+        }
+        return $channels;
     }
 
     /**
@@ -140,8 +167,13 @@ class message_output_oksigeniamarandu extends message_output {
         if (empty($user->id) || !empty($user->deleted) || !empty($user->suspended) || ($user->auth ?? '') === 'nologin') {
             return false;
         }
-        // Joined with any code (these preferences, the app or a letter), on WhatsApp: a chat of Telegram is another column.
-        return api::user_joined((int)$user->id, 'whatsapp');
+        // Joined with any code (these preferences, the app or a letter), on any channel of the site that sends.
+        foreach (self::channels() as $channel) {
+            if (api::user_joined((int)$user->id, $channel)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

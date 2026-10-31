@@ -24,14 +24,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['join'] = 'Dar de alta mi WhatsApp';
-$string['joined'] = 'Tu WhatsApp está dado de alta: las notificaciones que enciendas para WhatsApp te llegan allí, con un enlace para leerlas en el sitio. Para dejar de recibirlas, escribe «{$a}» al número del sitio.';
+$string['intro'] = 'Las notificaciones que enciendas en la columna «Mensajería móvil» te llegan al móvil, por el canal en el que te apuntes.';
+$string['join_telegram'] = 'Apuntarme por Telegram';
+$string['join_whatsapp'] = 'Apuntarme por WhatsApp';
+$string['joined_telegram'] = 'apuntado, en el chat del bot del sitio. Para dejar de recibirlas, escribe {$a->stop} o bloquea el bot.';
+$string['joined_whatsapp'] = 'apuntado, en el {$a->where}. Para dejar de recibirlas, manda «{$a->word}» al número del sitio.';
 $string['nosubject'] = 'Notificación nueva';
-$string['notjoined'] = 'Para recibir tus notificaciones por WhatsApp, primero da de alta tu número. La página abre WhatsApp en el móvil, o te enseña un código QR en el ordenador: solo tienes que mandar el mensaje.';
-$string['notready'] = 'WhatsApp todavía no está listo en este sitio.';
-$string['pluginname'] = 'WhatsApp';
-$string['privacy:metadata'] = 'El canal de WhatsApp no guarda nada: pasa las notificaciones a Oksigenia Marandu, que guarda los números, su consentimiento y la cola, y responde por ellos.';
+$string['notjoined'] = 'sin apuntar';
+$string['notready'] = 'La mensajería móvil todavía no está lista en este sitio.';
+$string['pluginname'] = 'Mensajería móvil';
+$string['privacy:metadata'] = 'La mensajería móvil no guarda nada: pasa las notificaciones a Oksigenia Marandu, que guarda los números y los chats, su consentimiento y la cola, y responde por ellos.';
 $string['setup'] = 'Configuración';
-$string['setup_desc'] = 'La cuenta de WhatsApp del sitio, los textos y los topes se configuran en <a href="{$a}">el asistente de Oksigenia Marandu</a>. Las notificaciones salen como su aviso general, que tiene que estar encendido allí. Después, cada usuario da de alta su número y elige en sus preferencias de notificación cuáles le llegan por WhatsApp.';
-$string['status:notready'] = 'Todavía no está listo: conecta la cuenta del sitio en el asistente y enciende el aviso general en el paso 4.';
-$string['status:ready'] = 'Listo: los usuarios ya pueden dar de alta su número desde sus preferencias de notificación.';
+$string['setup_desc'] = 'WhatsApp y Telegram se configuran en <a href="{$a}">el panel de Oksigenia Marandu</a>. Las notificaciones salen como su aviso general, que hay que encender allí para cada canal, en «Qué avisos salen». Después, cada usuario se apunta en sus preferencias de notificación, por WhatsApp, por Telegram o por los dos, y elige qué notificaciones le llegan.';
+$string['status:notready'] = 'Todavía no está lista: conecta WhatsApp o Telegram en el panel y enciende para él el aviso general en «Qué avisos salen».';
+$string['status:ready'] = 'Lista: los usuarios ya pueden apuntarse desde sus preferencias de notificación.';

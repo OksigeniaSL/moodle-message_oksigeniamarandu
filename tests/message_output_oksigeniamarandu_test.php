@@ -51,7 +51,17 @@ final class message_output_oksigeniamarandu_test extends \advanced_testcase {
     private function ready(): void {
         set_config('phonenumberid', '1234567890', 'local_oksigeniamarandu');
         set_config('accesstoken', 'made-up', 'local_oksigeniamarandu');
+        set_config('displayphone', '+34 900 000 000', 'local_oksigeniamarandu');
         set_config('enablednotices', 'local_oksigeniamarandu/notification', 'local_oksigeniamarandu');
+    }
+
+    /**
+     * The bot of Telegram connected, with the general notice switched on for it.
+     */
+    private function telegram(): void {
+        set_config('telegramtoken', \core\encryption::encrypt('123456789:' . str_repeat('A', 35)), 'local_oksigeniamarandu');
+        set_config('telegrambot', 'marandu_example_bot', 'local_oksigeniamarandu');
+        set_config('telegramnotices', 'local_oksigeniamarandu/notification', 'local_oksigeniamarandu');
     }
 
     /**
@@ -66,7 +76,7 @@ final class message_output_oksigeniamarandu_test extends \advanced_testcase {
     }
 
     /**
-     * Ready only with the account connected and the general notice on.
+     * Ready with a channel connected and the general notice on for it: WhatsApp, Telegram, or both.
      */
     public function test_is_system_configured(): void {
         $this->assertFalse($this->output->is_system_configured());
@@ -74,6 +84,9 @@ final class message_output_oksigeniamarandu_test extends \advanced_testcase {
         $this->assertTrue($this->output->is_system_configured());
         set_config('enablednotices', '', 'local_oksigeniamarandu');
         $this->assertFalse($this->output->is_system_configured());
+        $this->telegram();
+        $this->assertSame(['telegram'], \message_output_oksigeniamarandu::channels());
+        $this->assertTrue($this->output->is_system_configured());
     }
 
     /**
@@ -81,6 +94,7 @@ final class message_output_oksigeniamarandu_test extends \advanced_testcase {
      */
     public function test_is_user_configured(): void {
         global $DB;
+        $this->ready();
         $user = $this->getDataGenerator()->create_user();
         $other = $this->getDataGenerator()->create_user();
         $this->assertFalse($this->output->is_user_configured($user));
@@ -97,12 +111,14 @@ final class message_output_oksigeniamarandu_test extends \advanced_testcase {
         $this->assertFalse($this->output->is_user_configured($user));
         $this->assertSame(0, $DB->count_records(queue::TABLE));
 
-        // Joined with a code from elsewhere (the app, a letter), it counts; a chat of Telegram is another column.
+        // Joined with a code from elsewhere (the app, a letter), it counts; on Telegram too, once the site has it.
         consent::optin_from_message('34600000002', api::invite('core', 0, (int)$other->id), 'wamid.TEST3');
         $this->assertTrue($this->output->is_user_configured($other));
         $third = $this->getDataGenerator()->create_user();
         consent::optin_from_message('tg:555', api::invite('core', 0, (int)$third->id), 'telegram:1');
         $this->assertFalse($this->output->is_user_configured($third));
+        $this->telegram();
+        $this->assertTrue($this->output->is_user_configured($third));
     }
 
     /**
@@ -178,12 +194,16 @@ final class message_output_oksigeniamarandu_test extends \advanced_testcase {
         );
 
         $this->ready();
+        $this->telegram();
         $form = $this->output->config_form($preferences);
-        $this->assertStringContainsString('/message/output/oksigeniamarandu/join.php', $form);
+        $this->assertStringContainsString('join.php?channel=whatsapp', $form);
+        $this->assertStringContainsString('join.php?channel=telegram', $form);
 
+        // Joined on WhatsApp: it says where and how to stop; Telegram is still to join.
         $this->join($user, '34600000001');
         $form = $this->output->config_form($preferences);
-        $this->assertStringContainsString(get_string('joined', 'message_oksigeniamarandu', 'BAJA'), $form);
-        $this->assertStringNotContainsString('join.php', $form);
+        $this->assertStringContainsString('+34 6•• •• •• 01', $form);
+        $this->assertStringNotContainsString('channel=whatsapp', $form);
+        $this->assertStringContainsString('join.php?channel=telegram', $form);
     }
 }

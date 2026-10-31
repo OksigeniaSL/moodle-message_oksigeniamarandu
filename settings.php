@@ -30,7 +30,7 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading(
         'message_oksigeniamarandu/setup',
         get_string('setup', 'message_oksigeniamarandu'),
-        get_string('setup_desc', 'message_oksigeniamarandu', (new moodle_url('/local/oksigeniamarandu/wizard.php'))->out())
+        get_string('setup_desc', 'message_oksigeniamarandu', (new moodle_url('/local/oksigeniamarandu/index.php'))->out())
             . html_writer::tag('p', get_string($ready ? 'status:ready' : 'status:notready', 'message_oksigeniamarandu'), [
                 'class' => $ready ? 'text-success' : 'text-warning',
             ])

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 (2026-10-31)
+
+- One column for every channel, "Mobile messaging": in its settings, each user joins on WhatsApp, on Telegram or on
+  both, and the notifications switched on in it reach whatever they joined. A channel to come is one more option of
+  the same column. Needs local_oksigeniamarandu 0.13.0.
+
 ## 0.1.4 (2026-11-01)
 
 - A user counts as joined with any code (these preferences, the app or a letter), and only on WhatsApp. Needs

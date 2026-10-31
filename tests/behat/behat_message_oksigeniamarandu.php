@@ -32,13 +32,13 @@ require_once(__DIR__ . '/../../../../../lib/behat/behat_base.php');
  */
 class behat_message_oksigeniamarandu extends behat_base {
     /**
-     * Opens the settings of the WhatsApp column in the notification preferences, as its cog does.
+     * Opens the settings of the column of mobile messaging in the notification preferences, as its cog does.
      *
      * The link starts with an empty box (a tooltip block inside an inline link), which WebDriver refuses to click.
      *
-     * @When /^I open the settings of the WhatsApp channel$/
+     * @When /^I open the settings of the mobile messaging channel$/
      */
-    public function i_open_the_settings_of_the_whatsapp_channel(): void {
+    public function i_open_the_settings_of_the_mobile_messaging_channel(): void {
         $this->getSession()->executeScript(
             "document.querySelector(\"[data-processor-setting][data-name='oksigeniamarandu']\").click();"
         );

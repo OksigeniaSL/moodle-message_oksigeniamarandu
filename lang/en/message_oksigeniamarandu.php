@@ -24,14 +24,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['join'] = 'Join my WhatsApp';
-$string['joined'] = 'Your WhatsApp has joined: the notifications you switch on for WhatsApp reach you there, with a link to read them on the site. To stop them, send "{$a}" to the number of the site.';
+$string['intro'] = 'The notifications you switch on in the column "Mobile messaging" reach your phone, by the channel you join.';
+$string['join_telegram'] = 'Join on Telegram';
+$string['join_whatsapp'] = 'Join on WhatsApp';
+$string['joined_telegram'] = 'joined, in the chat of the bot of the site. To stop them, write {$a->stop} or block the bot.';
+$string['joined_whatsapp'] = 'joined, at {$a->where}. To stop them, send "{$a->word}" to the number of the site.';
 $string['nosubject'] = 'New notification';
-$string['notjoined'] = 'To get your notifications on WhatsApp, join your number first. The page opens WhatsApp on your phone, or shows a QR code on a computer: you only have to send the message.';
-$string['notready'] = 'WhatsApp is not ready on this site yet.';
-$string['pluginname'] = 'WhatsApp';
-$string['privacy:metadata'] = 'The WhatsApp channel keeps nothing: it hands the notifications to Oksigenia Marandu, which keeps the numbers, their consent and the queue, and answers for them.';
+$string['notjoined'] = 'not joined';
+$string['notready'] = 'Mobile messaging is not ready on this site yet.';
+$string['pluginname'] = 'Mobile messaging';
+$string['privacy:metadata'] = 'Mobile messaging keeps nothing: it hands the notifications to Oksigenia Marandu, which keeps the numbers and chats, their consent and the queue, and answers for them.';
 $string['setup'] = 'Set up';
-$string['setup_desc'] = 'The WhatsApp account of the site, the texts and the limits are set up in <a href="{$a}">the wizard of Oksigenia Marandu</a>. Notifications go out as its general notice, which has to be switched on there. Then each user joins their number and chooses, in their notification preferences, which notifications they get on WhatsApp.';
-$string['status:notready'] = 'Not ready yet: connect the account of the site in the wizard and switch on the general notice in step 4.';
-$string['status:ready'] = 'Ready: users can join their number from their notification preferences.';
+$string['setup_desc'] = 'WhatsApp and Telegram are set up in <a href="{$a}">the panel of Oksigenia Marandu</a>. Notifications go out as its general notice, which has to be switched on there for each channel, in "Which notices go out". Then each user joins, in their notification preferences, on WhatsApp, on Telegram or on both, and chooses which notifications they get.';
+$string['status:notready'] = 'Not ready yet: connect WhatsApp or Telegram in the panel and switch on the general notice for it in "Which notices go out".';
+$string['status:ready'] = 'Ready: users can join from their notification preferences.';
