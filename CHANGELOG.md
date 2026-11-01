@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 (2026-11-01)
+
+- The icon of Oksigenia Marandu.
+
 ## 0.2.0 (2026-10-31)
 
 - One column for every channel, "Mobile messaging": in its settings, each user joins on WhatsApp, on Telegram or on
