@@ -156,24 +156,25 @@ class message_output_oksigeniamarandu extends message_output {
     }
 
     /**
-     * Whether the user has joined a number that has not opted out.
+     * Whether the user has joined a number that has not opted out. As a number and not as true or false: the web service
+     * of the preferences, which the app reads, declares it as an integer and refuses false.
      *
      * @param \stdClass|null $user The user; the current one if null.
-     * @return bool
+     * @return int 1 or 0.
      */
     public function is_user_configured($user = null) {
         global $USER;
         $user = $user ?? $USER;
         if (empty($user->id) || !empty($user->deleted) || !empty($user->suspended) || ($user->auth ?? '') === 'nologin') {
-            return false;
+            return 0;
         }
         // Joined with any code (these preferences, the app or a letter), on any channel of the site that sends.
         foreach (self::channels() as $channel) {
             if (api::user_joined((int)$user->id, $channel)) {
-                return true;
+                return 1;
             }
         }
-        return false;
+        return 0;
     }
 
     /**

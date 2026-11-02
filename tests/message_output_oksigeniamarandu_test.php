@@ -97,28 +97,50 @@ final class message_output_oksigeniamarandu_test extends \advanced_testcase {
         $this->ready();
         $user = $this->getDataGenerator()->create_user();
         $other = $this->getDataGenerator()->create_user();
-        $this->assertFalse($this->output->is_user_configured($user));
+        $this->assertSame(0, $this->output->is_user_configured($user));
 
         $this->join($user, '34600000001');
-        $this->assertTrue($this->output->is_user_configured($user));
-        $this->assertFalse($this->output->is_user_configured($other));
+        $this->assertSame(1, $this->output->is_user_configured($user));
+        $this->assertSame(0, $this->output->is_user_configured($other));
 
         $user->suspended = 1;
-        $this->assertFalse($this->output->is_user_configured($user));
+        $this->assertSame(0, $this->output->is_user_configured($user));
         $user->suspended = 0;
 
         consent::optout('34600000001', 'whatsapp', 'wamid.TEST2');
-        $this->assertFalse($this->output->is_user_configured($user));
+        $this->assertSame(0, $this->output->is_user_configured($user));
         $this->assertSame(0, $DB->count_records(queue::TABLE));
 
         // Joined with a code from elsewhere (the app, a letter), it counts; on Telegram too, once the site has it.
         consent::optin_from_message('34600000002', api::invite('core', 0, (int)$other->id), 'wamid.TEST3');
-        $this->assertTrue($this->output->is_user_configured($other));
+        $this->assertSame(1, $this->output->is_user_configured($other));
         $third = $this->getDataGenerator()->create_user();
         consent::optin_from_message('tg:555', api::invite('core', 0, (int)$third->id), 'telegram:1');
-        $this->assertFalse($this->output->is_user_configured($third));
+        $this->assertSame(0, $this->output->is_user_configured($third));
         $this->telegram();
-        $this->assertTrue($this->output->is_user_configured($third));
+        $this->assertSame(1, $this->output->is_user_configured($third));
+    }
+
+    /**
+     * The app reads the preferences through the web service of Moodle, which takes this as a number: without it, whoever has
+     * not joined gets «Invalid response value detected» on the whole page.
+     */
+    public function test_preferences_for_the_app(): void {
+        global $CFG;
+        require_once($CFG->dirroot . '/message/externallib.php');
+        $this->ready();
+        $user = $this->getDataGenerator()->create_user();
+        $this->setUser($user);
+        $configured = function () use ($user) {
+            $clean = \core_external\external_api::clean_returnvalue(
+                \core_message_external::get_user_notification_preferences_returns(),
+                \core_message_external::get_user_notification_preferences((int)$user->id)
+            );
+            return array_column($clean['preferences']['processors'], 'userconfigured', 'name')['oksigeniamarandu'];
+        };
+        $this->assertSame(0, $configured());
+        $this->join($user, '34600000001');
+        $this->assertSame(1, $configured());
     }
 
     /**

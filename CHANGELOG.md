@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2 (2026-11-02)
+
+- The notification preferences of the mobile app no longer fail with «Invalid response value detected» for a user who has
+  not joined: Moodle's web service declares `userconfigured` as an integer and refused `false`.
+
 ## 0.2.1 (2026-11-01)
 
 - The icon of Oksigenia Marandu.
